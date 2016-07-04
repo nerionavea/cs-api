@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'rack-cors', :require => 'rack/cors'
 
 gem 'rails', '4.2.6'
 
@@ -10,6 +11,19 @@ gem 'spring', :group => :development
 
 gem 'sqlite3'
 
+gem 'devise', '~>3.5.0'
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.4'
+  gem "factory_girl_rails", "~> 4.0"
+  gem 'guard-rspec'
+  gem 'spring-commands-rspec'
+  gem 'faker'
+end
+
+group :test do
+  gem "shoulda-matchers"
+end
 
 
 # To use ActiveModel has_secure_password
