@@ -13,7 +13,8 @@ class PeriodsController < ApplicationController
   # GET /periods/1
   # GET /periods/1.json
   def show
-    render json: @period
+    period = current_user.school.periods.find(params[:id])
+    render json: period
   end
 
   # POST /periods
@@ -31,12 +32,12 @@ class PeriodsController < ApplicationController
   # PATCH/PUT /periods/1
   # PATCH/PUT /periods/1.json
   def update
-    @period = Period.find(params[:id])
+    period = current_user.school.periods.find(params[:id])
 
-    if @period.update(period_params)
-      head :no_content
+    if period.update(period_params)
+      render json: period, status: :accepted
     else
-      render json: @period.errors, status: :unprocessable_entity
+      render json: {errors: period.errors}, status: :unprocessable_entity
     end
   end
 

@@ -42,9 +42,60 @@ RSpec.describe PeriodsController, type: :controller do
 
       it {should respond_with :unprocessable_entity}
     end
+
+    describe 'must not allow create same years' do 
+      before :each do 
+        create_environment
+        login_with @user
+        post :create, {school_id: @school.id, period: {year: @period.year}}
+      end
+
+      it 'must return an error' do 
+        response = parse_json_response
+        expect(response).to have_key(:errors)
+      end
+    end
   end
 
   describe 'PUT #Update' do 
+    describe 'when updates' do 
+      before :each do 
+        create_environment
+        login_with @user
+        patch :update, {school_id: @school.id, id: @period.id, period: {year: 2018}}
+      end
+      it 'render a json representation of updated period' do 
+        response = parse_json_response
+        expect(response[:year]).to be 2018 
+      end
+      it {should respond_with :accepted}
+    end
+    describe 'when not updates' do 
+      before :each do 
+        create_environment
+        login_with @user 
+        patch :update, {school_id: @school.id, id: @period.id, period: {year: 'ab'}}
+      end
 
+      it 'render a json with errors' do 
+        response = parse_json_response
+        expect(response).to have_key(:errors)  
+      end
+
+      it {should respond_with :unprocessable_entity}
+    end
+  end
+
+  describe 'get #show' do 
+    before :each do
+      create_environment
+      login_with @user
+      get :show, {school_id: @school.id, id: @period.id}
+    end
+    it 'renders a json for the period item' do 
+      response = parse_json_response
+      expect(response[:year]).to eq @period.year   
+    end
+    it { should respond_with :ok}
   end
 end
