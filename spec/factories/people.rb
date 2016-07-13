@@ -1,11 +1,11 @@
 FactoryGirl.define do
-  factory :person do
-    names "MyString"
-    last_names "MyString"
-    ci 1
-    place_birth "MyString"
-    birth "2016-07-09"
-    address "MyString"
-    sex "MyString"
+  factory :people do
+    names Faker::Name.name
+    last_names Faker::Name.name
+    ci Faker::Number.number(9)
+    place_birth Faker::Address.street_name 
+    birth Faker::Date.backward(260)
+    address Faker::Address.city
+    sex "hombre"
   end
 end

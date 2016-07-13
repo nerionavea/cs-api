@@ -4,6 +4,8 @@ module ControllerHelpers
     @user = FactoryGirl.create(:user)
     @school = FactoryGirl.create(:school, user: @user)
     @period = FactoryGirl.create(:period, year: Date.today.year, school: @school)
+    @people = FactoryGirl.create(:people, school: @school)
+    @representant = FactoryGirl.create(:representant, people: @people)
   end
 	 def login_with(user = double('user'), scope = :user)
     current_user = "current_#{scope}".to_sym

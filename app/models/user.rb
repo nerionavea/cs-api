@@ -6,5 +6,4 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
  	has_one :school
 
- 	has_many :persons
 end

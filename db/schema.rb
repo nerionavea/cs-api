@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160710001804) do
+ActiveRecord::Schema.define(version: 20160713133243) do
 
   create_table "people", force: :cascade do |t|
     t.string   "names"
@@ -23,10 +23,10 @@ ActiveRecord::Schema.define(version: 20160710001804) do
     t.string   "sex"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "user_id"
+    t.integer  "school_id"
   end
 
-  add_index "people", ["user_id"], name: "index_people_on_user_id"
+  add_index "people", ["school_id"], name: "index_people_on_school_id"
 
   create_table "periods", force: :cascade do |t|
     t.integer  "year"
@@ -36,6 +36,16 @@ ActiveRecord::Schema.define(version: 20160710001804) do
   end
 
   add_index "periods", ["school_id"], name: "index_periods_on_school_id"
+
+  create_table "representants", force: :cascade do |t|
+    t.string   "occupation"
+    t.string   "bussines"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "people_id"
+  end
+
+  add_index "representants", ["people_id"], name: "index_representants_on_people_id"
 
   create_table "schools", force: :cascade do |t|
     t.string   "description"
